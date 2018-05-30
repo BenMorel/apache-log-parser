@@ -1,0 +1,20 @@
+{
+  "name": "benmorel/apache-log-parser",
+  "description": "PHP library to parse Apache log files",
+  "type": "library",
+  "keywords": [
+    "Apache",
+    "Log",
+    "Parse",
+    "Parser"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "BenMorel\\ApacheLogParser\\": "src/"
+    }
+  }
+}
