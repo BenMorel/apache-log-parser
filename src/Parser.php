@@ -4,6 +4,10 @@ namespace BenMorel\ApacheLogParser;
 
 class Parser
 {
+    /**
+     * Maps Apache log format strings (following the % char) to human readable names.
+     * The field names will be composed from these names.
+     */
     private const FORMAT_STRING_NAMES = [
         'a' => 'clientIp',
         'A' => 'localIp',
@@ -43,6 +47,16 @@ class Parser
     ];
 
     /**
+     * The regex pattern used to parse the Apache log format.
+     *
+     * This pattern parses 3 possible strings:
+     *  - A % char followed by a potentially valid format string; this will be replaced with a regular expression
+     *  - A % char followed by any other char; this fail with an exception, unless the second char is also a % (escape)
+     *  - Any other string not containing a % char; this will be properly quoted to be regex safe
+     */
+    private const LOG_FORMAT_PATTERN = '/%(?:\{([a-zA-Z\-_]+)\})?[\<\>]?([a-zA-Z]|\^t[io])|%.|[^%]+/';
+
+    /**
      * The regex pattern used to parse a single log line.
      *
      * @var string
@@ -65,13 +79,9 @@ class Parser
      */
     public function __construct(string $logFormat)
     {
-        $pattern = preg_replace_callback('/%(?:\{([a-zA-Z\-_]+)\})?[\<\>]?([a-zA-Z]|\^t[io])|%%|[^%]/', [$this, 'replaceCallback'], $logFormat);
+        $pattern = preg_replace_callback(self::LOG_FORMAT_PATTERN, [$this, 'replaceCallback'], $logFormat);
 
-        if (preg_match('/%[^%]/', $pattern, $matches) !== 0) {
-            throw new \InvalidArgumentException('Unknown format string: ' . $matches[0]);
-        }
-
-        $this->pattern = '/^' . $pattern . '$/';
+        $this->pattern = '/^' . $pattern . '\r?\n?$/';
     }
 
     /**
@@ -92,6 +102,10 @@ class Parser
             return preg_quote($matches[0], '/');
         }
 
+        if (! isset($matches[1])) {
+            throw new \InvalidArgumentException('Unknown format string: ' . $matches[0]);
+        }
+
         [, $bracketName, $formatString] = $matches;
 
         if (! isset(self::FORMAT_STRING_NAMES[$formatString])) {
@@ -106,15 +120,16 @@ class Parser
 
         $this->names[] = $this->getUniqueName($name);
 
-        return $this->getFormatStringRegexp($formatString);
+        return $this->getFormatStringRegexp($formatString, $bracketName !== '');
     }
 
     /**
      * @param string $formatString The log format string.
+     * @param bool   $hasBrackets  Whether the format string has a curly brackets part.
      *
      * @return string A regexp with a single capturing group.
      */
-    private function getFormatStringRegexp(string $formatString) : string
+    private function getFormatStringRegexp(string $formatString, bool $hasBrackets) : string
     {
         switch ($formatString) {
             case 'a': // Client IP address of the request
@@ -149,7 +164,7 @@ class Parser
                 return '([A-Za-z]+ \S+ HTTP\/[0-9\.]+|\-)';
 
             case 't': // Time the request was received, in the format [18/Sep/2011:19:18:28 -0400]
-                return '\[([^\]]+)\]';
+                return $hasBrackets ? '([0-9]+)' : '\[([^\]]+)\]';
 
             case 'U': // URL path requested, not including any query string
             case 'v': // Canonical ServerName of the server serving the request
