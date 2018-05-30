@@ -110,15 +110,15 @@ var_export(
 
 ```php
 array (
-  'remoteHostname' => '1.2.3.4',
-  'remoteLogname' => '-',
-  'remoteUser' => '-',
-  'time' => '30/May/2018:15:00:23 +0200',
-  'requestHeader:Host' => 'www.example.com',
-  'firstRequestLine' => 'GET / HTTP/1.0',
-  'status' => '200',
-  'responseSize' => '1234',
-  'requestHeader:Referer' => '-',
+  'remoteHostname'           => '1.2.3.4',
+  'remoteLogname'            => '-',
+  'remoteUser'               => '-',
+  'time'                     => '30/May/2018:15:00:23 +0200',
+  'requestHeader:Host'       => 'www.example.com',
+  'firstRequestLine'         => 'GET / HTTP/1.0',
+  'status'                   => '200',
+  'responseSize'             => '1234',
+  'requestHeader:Referer'    => '-',
   'requestHeader:User-Agent' => 'Mozilla/5.0',
 )
 ```
