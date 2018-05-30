@@ -122,3 +122,52 @@ array (
   'requestHeader:User-Agent' => 'Mozilla/5.0',
 )
 ```
+
+## Field names returned by the library
+
+This table shows how [format strings](https://httpd.apache.org/docs/current/en/mod/mod_log_config.html#formats) are mapped to field names by the library:
+
+| Format string   | Field name                  |
+|-----------------|-----------------------------|
+| `%a`            | clientIp                    |
+| `%{c}a`         | clientIp:c                  |
+| `%A`            | localIp                     |
+| `%B`            | responseSize                |
+| `%b`            | responseSize                |
+| `%{VARNAME}C`   | cookie:VARNAME              |
+| `%D`            | responseTime                |
+| `%{VARNAME}e`   | env:VARNAME                 |
+| `%f`            | filename                    |
+| `%h`            | remoteHostname              |
+| `%H`            | requestProtocol             |
+| `%{VARNAME}i`   | requestHeader:VARNAME       |
+| `%k`            | keepaliveRequests           |
+| `%l`            | remoteLogname               |
+| `%L`            | requestLogId                |
+| `%m`            | requestMethod               |
+| `%{VARNAME}n`   | note:VARNAME                |
+| `%{VARNAME}o`   | responseHeader:VARNAME      |
+| `%p`            | canonicalPort               |
+| `%{FORMAT}p`    | canonicalPort:FORMAT        |
+| `%P`            | processId                   |
+| `%{FORMAT}P`    | processId:FORMAT            |
+| `%q`            | queryString                 |
+| `%r`            | firstRequestLine            |
+| `%R`            | handler                     |
+| `%s`            | status                      |
+| `%t`            | time                        |
+| `%{FORMAT}t`    | time:FORMAT                 |
+| `%T`            | timeToServe                 |
+| `%{UNIT}T`      | timeToServe:UNIT            |
+| `%u`            | remoteUser                  |
+| `%U`            | urlPath                     |
+| `%v`            | serverName                  |
+| `%V`            | serverName                  |
+| `%X`            | connectionStatus            |
+| `%I`            | bytesReceived               |
+| `%O`            | bytesSent                   |
+| `%S`            | bytesTransferred            |
+| `%{VARNAME}^ti` | requestTrailerLine:VARNAME  |
+| `%{VARNAME}^to` | responseTrailerLine:VARNAME |
+
+If two or more format strings yield the same field name, the second one will get a `:2` suffix, the third one a `:3` suffix, etc.
