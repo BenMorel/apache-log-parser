@@ -181,3 +181,9 @@ This table shows how [format strings](https://httpd.apache.org/docs/current/en/m
 | `%{VARNAME}^to` | responseTrailerLine:VARNAME |
 
 If two or more format strings yield the same field name, the second one will get a `:2` suffix, the third one a `:3` suffix, etc.
+
+## Performance notes
+
+You can expect to parse more than 250,000 records per second when reading logs from a file on a modern server with an SSD drive.
+
+Returning records as an associative array comes with a small performance penalty of about 6%.
