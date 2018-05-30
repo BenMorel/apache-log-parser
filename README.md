@@ -123,6 +123,16 @@ array (
 )
 ```
 
+If a line cannot be parsed, an `InvalidArgumentException` is thrown. Be sure to wrap your `parse()` calls in a try-catch block:
+
+```php
+try {
+    $parser->parse($line, true)
+} catch (\InvalidArgumentException $e) {
+    // ...
+}
+```
+
 ## Field names returned by the library
 
 This table shows how [format strings](https://httpd.apache.org/docs/current/en/mod/mod_log_config.html#formats) are mapped to field names by the library:
