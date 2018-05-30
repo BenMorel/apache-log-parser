@@ -39,7 +39,7 @@ for a list of changes introduced by each further `0.x.0` version.
 
 This library provides a single class, `Parser`.
 
-## Example
+## Quick start
 
 First construct a `Parser` object with the `LogFormat` defined in the httpd.conf file of the server that generated the log file:
 
