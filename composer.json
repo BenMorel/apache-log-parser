@@ -12,9 +12,17 @@
   "require": {
     "php": ">=7.1"
   },
+  "require-dev": {
+    "phpunit/phpunit": "7.*"
+  },
   "autoload": {
     "psr-4": {
       "BenMorel\\ApacheLogParser\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "BenMorel\\ApacheLogParser\\Tests\\": "tests/"
     }
   }
 }
