@@ -187,6 +187,6 @@ If two or more format strings yield the same field name, the second one will get
 
 ## Performance notes
 
-You can expect to parse more than 250,000 records per second when reading logs from a file on a modern server with an SSD drive.
+You can expect to parse more than 250,000 records per second (> 50 MiB/s) when reading logs from a file on a modern server with an SSD drive.
 
 Returning records as an associative array comes with a small performance penalty of about 6%.
