@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BenMorel\ApacheLogParser\Tests;
 
 use BenMorel\ApacheLogParser\Parser;
