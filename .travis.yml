@@ -1,10 +1,10 @@
 language: php
 
 php:
-  - 7.1
   - 7.2
   - 7.3
   - 7.4
+  - 8.0snapshot
 
 before_script:
   - if [[ $TRAVIS_PHP_VERSION = hhv* ]]; then echo hhvm.php7.all=1 >> /etc/hhvm/php.ini; fi
