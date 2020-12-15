@@ -6,6 +6,7 @@ namespace BenMorel\ApacheLogParser\Tests;
 
 use BenMorel\ApacheLogParser\Parser;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class ParserTest extends TestCase
@@ -67,13 +68,14 @@ class ParserTest extends TestCase
 
     /**
      * @dataProvider providerParseWithInvalidFormatString
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown format string
      *
      * @param string $logFormat
      */
     public function testParseWithUnknownFormatString(string $logFormat) : void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unknown format string');
+
         new Parser($logFormat);
     }
 
