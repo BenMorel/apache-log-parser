@@ -11,7 +11,7 @@ A PHP library to parse Apache logs.
 
 This library is installable via [Composer](https://getcomposer.org/). Just run:
 
-```
+```bash
 composer require benmorel/apache-log-parser
 ```
 
