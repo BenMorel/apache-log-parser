@@ -9,15 +9,10 @@ A PHP library to parse Apache logs.
 
 ## Installation
 
-This library is installable via [Composer](https://getcomposer.org/).
-Just define the following requirement in your `composer.json` file:
+This library is installable via [Composer](https://getcomposer.org/). Just run:
 
-```json
-{
-    "require": {
-        "benmorel/apache-log-parser": "dev-master"
-    }
-}
+```
+composer require benmorel/apache-log-parser
 ```
 
 ## Requirements
